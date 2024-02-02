@@ -3,6 +3,8 @@ from django.contrib import admin
 from blog.models import User, Post
 
 
+# tabular inline or stacked inline
+
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
     list_display = ["first_name", "last_name", "username", "post_count", "password"]

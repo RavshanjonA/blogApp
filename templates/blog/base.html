@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,27 +11,27 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
     <title>Django Blog</title>
 </head>
 <body>
 <header class="site-header">
     <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
         <div class="container">
-            <a class="navbar-brand mr-4" href="home.html">Django Blog</a>
+            <a class="navbar-brand mr-4" href="{% url 'blog:home-page' %}">Django Blog</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
                     aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarToggle">
                 <div class="navbar-nav mr-auto">
-                    <a class="nav-item nav-link" href="home.html">Home</a>
-                    <a class="nav-item nav-link" href="about.html">About</a>
+                    <a class="nav-item nav-link" href="{% url 'blog:home-page' %}">Home</a>
+                    <a class="nav-item nav-link" href="{% url 'blog:about' %}">About</a>
                 </div>
                 <!-- Navbar Right Side -->
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link" href="post_form.html">New Post</a>
-                    <a class="nav-item nav-link" href="user_posts.html">Profile</a>
+                    <a class="nav-item nav-link" href="{% url 'blog:new-post' %}">New Post</a>
+                    <a class="nav-item nav-link" href="{% url 'blog:user-post' %}">Profile</a>
                     <a class="nav-item nav-link" href="#">Logout</a>
                     <a class="nav-item nav-link" href="login.html">Login</a>
                     <a class="nav-item nav-link" href="register.html">Register</a>
@@ -39,40 +40,11 @@
         </div>
     </nav>
 </header>
-<main role="main" class="container">
-    <div class="row">
-        <div class="col-md-8">
-            <div class="alert alert-{{ message.tags }}">
-                <h6>Django messages might be shown here</h6>
-            </div>
-            <div class="content-section">
-                <form method="POST">
-                    <fieldset class="form-group">
-                        <legend class="border-bottom mb-4">Delete Post</legend>
-                        <h2>Are you sure you want to delete the post "I have been watching a decade."</h2>
-                    </fieldset>
-                    <div class="form-group">
-                        <button class="btn btn-outline-danger" type="submit">Yes, Delete</button>
-                        <a class="btn btn-outline-secondary" href="{% url 'post-detail' object.id %}">Cancel</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="content-section">
-                <h3>Our Sidebar</h3>
-                <p class='text-muted'>You can put any information here you'd like.
-                <ul class="list-group">
-                    <li class="list-group-item list-group-item-light">Latest Posts</li>
-                    <li class="list-group-item list-group-item-light">Announcements</li>
-                    <li class="list-group-item list-group-item-light">Calendars</li>
-                    <li class="list-group-item list-group-item-light">etc</li>
-                </ul>
-                </p>
-            </div>
-        </div>
-    </div>
-</main>
+
+    {% block body %}
+
+
+    {% endblock %}
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -87,5 +59,3 @@
         crossorigin="anonymous"></script>
 </body>
 </html>
-            
-            
