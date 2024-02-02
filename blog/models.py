@@ -15,6 +15,10 @@ class User(AbstractUser, AbstractModel):
     avatar = models.ImageField(upload_to='avatars')
 
 
+    @property
+    def post_count(self):
+        return self.posts.count()
+
 class Post(AbstractModel):
     title = models.CharField(max_length=128)
     content = models.TextField()
