@@ -1,0 +1,36 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block body %}
+   <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h2>Register</h2>
+                <form action="#" method="post">
+                    {% csrf_token %}
+                    {#                    {{ form.as_p }}#}
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm_password">Confirm Password:</label>
+                        <input type="password" class="form-control" id="confirm_password" name="confirm_password"
+                               required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </form>
+                <p>Already have an account? <a href="{% url 'Jahongir:login' %}">Login</a></p>
+            </div>
+        </div>
+    </div>
+{#    {% include 'blog/sidebar.html' %}#}
+
+{% endblock %}

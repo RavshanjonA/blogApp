@@ -14,8 +14,7 @@ class AbstractModel(models.Model):
 
 
 class User(AbstractUser, AbstractModel):
-    avatar = models.ImageField(upload_to=avatar_path)
-
+    avatar = models.ImageField(upload_to=avatar_path, default='avatar.JPG')
 
     @property
     def post_count(self):
@@ -28,3 +27,4 @@ class Post(AbstractModel):
     published = models.DateField()
     is_active = models.BooleanField(default=False)
     author = models.ForeignKey("blog.User", CASCADE, "posts")
+

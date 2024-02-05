@@ -6,30 +6,24 @@
     `<main role="main" class="container">
         <div class="row">
             <div class="col-md-8">
+                {% for message in messages %}
                 <div class="alert alert-{{ message.tags }}">
-                    <h6>Django messages might be shown here</h6>
+                    <h6>{{ message }}</h6>
                 </div>
+                {% endfor %}
+                {% for post in posts %}
                 <article class="media content-section">
-                    <img class="rounded-circle article-img" src="{% static 'corey.jpeg' %}">
+                    <img class="rounded-circle article-img" src="{{ post.author.avatar.url }}">
                     <div class="media-body">
                         <div class="article-metadata">
-                            <a class="mr-2" href="user_posts.html">Jordan Gibbs</a>
-                            <small class="text-muted">Feb 19, 2023</small>
+                            <a class="mr-2" href="{%   url 'blog:user-profile' post.author.username %}">{{ post.author.first_name }} {{ post.author.last_name }}</a>
+                            <small class="text-muted">{{ post.published }}</small>
                         </div>
-                        <h5><a class="article-title" href="post_detail.html">I have been watching a decade.</a></h5>
+                        <h5><a class="article-title" href="{% url 'blog:post-detail' post.pk %}">{{ post.title }}</a></h5>
                     </div>
                 </article>
-                <article class="media content-section">
-                    <img class="rounded-circle article-img" src="{% static 'gibbs.jpeg' %}">
-                    <div class="media-body">
-                        <div class="article-metadata">
-                            <a class="mr-2" href="user_posts.html">Jordan Gibbs </a>
-                            <small class="text-muted">Feb 19, 2023</small>
-                        </div>
-                        <h5><a class="article-title" href="post_detail.html">Do Gimmicky ChatGPT Prompts Actually
-                            Work?</a></h5>
-                    </div>
-                </article>
+                {% endfor %}
+
             </div>
             <div class="col-md-4">
                 <div class="content-section">
