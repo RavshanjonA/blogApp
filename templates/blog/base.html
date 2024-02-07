@@ -35,14 +35,19 @@
                     <a class="nav-item nav-link" href="{% url 'blog:user-profile' request.user.username  %}">Profile</a>
                     <a class="nav-item nav-link" href="{% url 'blog:logout' %}">Logout</a>
                     {% else %}
-                    <a class="nav-item nav-link" href="login.html">Login</a>
-                    <a class="nav-item nav-link" href="register.html">Register</a>
+                    <a class="nav-item nav-link" href="{% url 'blog:login-page' %}">Login</a>
+                    <a class="nav-item nav-link" href="{% url 'blog:register-page' %}">Register</a>
                     {% endif %}
                 </div>
             </div>
         </div>
     </nav>
 </header>
+     {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    <p>{{ message }}</p>
+                </div>
+    {% endfor %}
 
     {% block body %}
 

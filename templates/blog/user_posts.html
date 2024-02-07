@@ -9,10 +9,11 @@
                     <h3>{{ message}}</h3>
                 </div>
                 {% endfor %}
-                <h1 class="mb-3">Posts by {{ first_name }} {{ last_name }} </h1>
 
+
+                <h1 class="mb-3">Posts by {{ first_name }} {{ last_name }} </h1>
                 {% for post in posts %}
-                <article class="media content-section">
+                    <article class="media content-section">
                     <img class="rounded-circle article-img" src="{{ post.author.avatar.url }}">
                     <div class="media-body">
                         <div class="article-metadata">
@@ -23,7 +24,8 @@
 {#                            <p class="article-content">{{ post.content }}</p>#}
                     </div>
                 </article>
-
+                {% empty %}
+                        <h1>No Post</h1>
                 {% endfor %}
             </div>
             {% include 'blog/sidebar.html' %}
