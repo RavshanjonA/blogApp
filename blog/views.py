@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from django.views.generic import TemplateView, ListView
 
 from blog.forms import LoginForm, UserRegistrationForm, PostCreateForm
@@ -56,7 +57,7 @@ def post_create(request):
             post.published = datetime.datetime.now().strftime("%Y-%m-%d")
             post.save()
             messages.success(request, "post successfully created")
-            return redirect("blog:user-post")
+            return redirect(reverse('blog:user-profile', kwargs={"username":request.user.username}))
         else:
             return render(request, "blog/post_form.html", {"form": form})
     else:
