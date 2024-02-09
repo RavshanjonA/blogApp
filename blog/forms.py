@@ -1,3 +1,5 @@
+import datetime
+
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
@@ -43,9 +45,16 @@ class PostCreateForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         for field in self.fields:
-            if str(field)!="is_active":
-                self.fields[field].widget.attrs.update({"class": "form-control", "placeholder": f"Enter the {str(field)}"})
+            if str(field) != "is_active":
+                self.fields[field].widget.attrs.update(
+                    {"class": "form-control", "placeholder": f"Enter the {str(field)}"})
 
+    class Meta:
+        model = Post
+        fields = ("title", "content", "is_active")
+
+
+class PostUpdateForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ("title", "content", "is_active")

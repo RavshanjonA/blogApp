@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views.generic import TemplateView, ListView
 
-from blog.forms import LoginForm, UserRegistrationForm, PostCreateForm
+from blog.forms import LoginForm, UserRegistrationForm, PostCreateForm, PostUpdateForm
 from blog.models import Post, User
 
 
@@ -52,12 +52,13 @@ def post_create(request):
     if request.method == "POST":
         form = PostCreateForm(request.POST)
         if form.is_valid():
-            post = Post(title=form.cleaned_data["title"], content=form.cleaned_data["content"], is_active=form.cleaned_data["is_active"])
+            post = Post(title=form.cleaned_data["title"], content=form.cleaned_data["content"],
+                        is_active=form.cleaned_data["is_active"])
             post.author = request.user
             post.published = datetime.datetime.now().strftime("%Y-%m-%d")
             post.save()
             messages.success(request, "post successfully created")
-            return redirect(reverse('blog:user-profile', kwargs={"username":request.user.username}))
+            return redirect(reverse('blog:user-profile', kwargs={"username": request.user.username}))
         else:
             return render(request, "blog/post_form.html", {"form": form})
     else:
@@ -65,7 +66,34 @@ def post_create(request):
         return render(request, "blog/post_form.html", {"form": form})
 
 
-@login_required
+@login_required()
+def post_update(request, pk: int):
+    post = Post.objects.get(pk=pk)
+    if request.method == "POST":
+        form = PostUpdateForm(data=request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "post successfully updated")
+            return redirect(reverse('blog:post-detail', kwargs={"pk": post.id}))
+        else:
+            return render(request, "blog/post_update.html", {"form": form})
+    else:
+        form = PostUpdateForm(instance=post)
+        return render(request, "blog/post_update.html", {"form": form})
+
+
+@login_required()
+def post_delete(requet, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if requet.method == "POST":
+        messages.success(requet, "post successfully deleted")
+        post.delete()
+        return redirect(reverse('blog:user-profile', kwargs={"username": requet.user.username}))
+    else:
+        return render(requet, "blog/post_confirm_delete.html", {"post": post})
+
+
+# @login_required
 def user_profile(request, username):
     posts = Post.objects.filter(author__username=username)
     user = get_object_or_404(User, username=username)
