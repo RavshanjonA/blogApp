@@ -27,4 +27,5 @@ class Post(AbstractModel):
     published = models.DateField()
     is_active = models.BooleanField(default=False)
     author = models.ForeignKey("blog.User", CASCADE, "posts")
-
+    def __str__(self):
+        return self.title

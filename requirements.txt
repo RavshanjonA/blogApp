@@ -1,6 +1,8 @@
 asgiref==3.7.2
-Django==5.0.1
+Django
 pillow==10.2.0
 sqlparse==0.4.4
 typing_extensions==4.9.0
 crispy-bootstrap4==2023.1
+Faker==23.1.0
+gunicorn
