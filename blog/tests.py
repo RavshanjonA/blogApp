@@ -48,3 +48,5 @@ class PostTestCase(TestCase):
         self.client.login(username=self.user2.username, password="testpass")
         response = self.client.get(reverse("blog:user-profile", kwargs={"username": self.user2.username}))
         self.assertContains(response, "No Post")
+
+    # def test_home_post_list(self):

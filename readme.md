@@ -1,4 +1,3 @@
-## 1. update, delete view uchun class based view yozish
-## 2. update delete viewlarni test qiling.
-## 3. login, register, post create template crispy formdan foydalaning 
-## 4. 1 ta loyihani pythonanywhere ga deploy qilish 
+## 1. faker orqali post generate qilish
+## 2. add pagination and test qilish
+## 3. railway ga deploy qilish 1ta
